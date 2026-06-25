@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SpeakUp — Курсы английского языка</title>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2220197185417547');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2220197185417547&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0D1F3C;
+      --sky: #2D7DD2;
+      --mint: #3BBFA3;
+      --cream: #F8F6F1;
+      --white: #FFFFFF;
+      --gray: #6B7280;
+      --light: #EEF2F7;
+      --text: #1A2B45;
+    }
+
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #E5E7EB;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .logo span { color: var(--sky); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-cta {
+      background: var(--sky); color: var(--white);
+      border: none; border-radius: 8px;
+      padding: 10px 22px; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: background .2s;
+    }
+    .nav-cta:hover { background: #2268B8; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+
+    /* HERO */
+    .hero {
+      background: var(--navy);
+      padding: 80px 5% 70px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(45,125,210,0.2);
+      color: #7BC4FF;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; padding: 6px 14px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      color: var(--white); line-height: 1.15; margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--mint); font-style: normal; }
+    .hero p { color: #A8B8CC; font-size: 1.05rem; line-height: 1.7; margin-bottom: 36px; }
+    .hero-stats { display: flex; gap: 32px; margin-bottom: 36px; }
+    .stat strong { display: block; font-size: 1.8rem; font-weight: 700; color: var(--white); }
+    .stat span { font-size: 0.8rem; color: #7B8FA4; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--sky); color: var(--white);
+      padding: 14px 28px; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: #2268B8; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      padding: 14px 28px; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,0.3);
+      cursor: pointer; transition: border-color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--white); }
+
+    /* Hero card */
+    .hero-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 40px;
+    }
+    .hero-card h3 { color: var(--white); font-size: 1.15rem; margin-bottom: 24px; }
+    .hero-form { display: flex; flex-direction: column; gap: 14px; }
+    .hero-form input, .hero-form select {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; padding: 13px 16px;
+      color: var(--white); font-size: 0.9rem; font-family: inherit;
+      outline: none; transition: border-color .2s;
+    }
+    .hero-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .hero-form select option { background: var(--navy); color: var(--white); }
+    .hero-form input:focus, .hero-form select:focus { border-color: var(--sky); }
+    .hero-form .submit-btn {
+      background: var(--mint); border: none; border-radius: 8px;
+      padding: 14px; color: var(--navy); font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; transition: background .2s;
+    }
+    .hero-form .submit-btn:hover { background: #2DA88E; }
+    .form-note { font-size: 0.75rem; color: rgba(255,255,255,0.35); text-align: center; }
+
+    /* SECTION COMMONS */
+    section { padding: 80px 5%; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--sky); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem); color: var(--navy); margin-bottom: 16px;
+    }
+    .section-sub { color: var(--gray); font-size: 1rem; line-height: 1.7; max-width: 560px; }
+
+    /* WHY US */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 50px;
+    }
+    .why-card {
+      background: var(--cream); border-radius: 16px; padding: 32px;
+      border: 1px solid #E5E0D6;
+    }
+    .why-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--sky); display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 20px;
+    }
+    .why-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .why-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+
+    /* COURSES */
+    .courses-bg { background: var(--cream); }
+    .courses-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
+    .courses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .course-card {
+      background: var(--white); border-radius: 16px;
+      padding: 32px; border: 1px solid #E5E0D6;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .course-card:hover { box-shadow: 0 8px 32px rgba(13,31,60,0.1); transform: translateY(-3px); }
+    .course-tag {
+      display: inline-block; background: var(--light);
+      color: var(--sky); font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: 4px 12px; border-radius: 20px; align-self: flex-start;
+    }
+    .course-card h4 { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .course-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.65; flex: 1; }
+    .course-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+    .course-price { font-size: 1.2rem; font-weight: 700; color: var(--sky); }
+    .course-price span { font-size: 0.8rem; font-weight: 400; color: var(--gray); }
+    .course-link {
+      font-size: 0.85rem; font-weight: 600; color: var(--sky);
+      text-decoration: none; display: flex; align-items: center; gap: 4px;
+    }
+    .course-link:hover { text-decoration: underline; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+    .price-card {
+      border: 1.5px solid #E5E0D6; border-radius: 20px;
+      padding: 36px 28px; text-align: center;
+      transition: transform .2s, border-color .2s;
+    }
+    .price-card.featured {
+      border-color: var(--sky); background: var(--navy); color: var(--white);
+      transform: scale(1.04);
+    }
+    .price-card:not(.featured):hover { border-color: var(--sky); }
+    .price-badge {
+      background: var(--sky); color: var(--white);
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px;
+    }
+    .price-name { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .price-featured .price-name { color: var(--white); }
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 700; color: var(--navy); margin-bottom: 4px;
+    }
+    .price-card.featured .price-amount { color: var(--white); }
+    .price-period { font-size: 0.82rem; color: var(--gray); margin-bottom: 28px; }
+    .price-card.featured .price-period { color: #7B8FA4; }
+    .price-features { list-style: none; text-align: left; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .price-features li { font-size: 0.88rem; color: var(--gray); display: flex; gap: 10px; align-items: flex-start; }
+    .price-card.featured .price-features li { color: #A8B8CC; }
+    .price-features li::before { content: "✓"; color: var(--mint); font-weight: 700; flex-shrink: 0; }
+    .btn-price {
+      display: block; text-align: center; text-decoration: none;
+      border-radius: 10px; padding: 13px; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; border: none; transition: .2s;
+    }
+    .btn-price-outline {
+      border: 1.5px solid var(--sky); color: var(--sky); background: transparent;
+    }
+    .btn-price-outline:hover { background: var(--sky); color: var(--white); }
+    .btn-price-fill { background: var(--mint); color: var(--navy); }
+    .btn-price-fill:hover { background: #2DA88E; }
+
+    /* TEACHERS */
+    .teachers-bg { background: var(--cream); }
+    .teachers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 50px; }
+    .teacher-card {
+      background: var(--white); border-radius: 16px; padding: 28px 20px;
+      text-align: center; border: 1px solid #E5E0D6;
+      transition: box-shadow .2s;
+    }
+    .teacher-card:hover { box-shadow: 0 6px 24px rgba(13,31,60,0.08); }
+    .teacher-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--light); margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 700; color: var(--sky);
+      font-family: 'Playfair Display', serif;
+    }
+    .teacher-name { font-weight: 700; color: var(--navy); font-size: 1rem; margin-bottom: 4px; }
+    .teacher-spec { font-size: 0.82rem; color: var(--gray); }
+
+    /* EVENTS */
+    .events-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 50px; }
+    .event-card {
+      border-radius: 16px; padding: 32px;
+      border: 1px solid #E5E0D6; display: flex; gap: 20px; align-items: flex-start;
+    }
+    .event-icon { font-size: 2rem; flex-shrink: 0; }
+    .event-tag { font-size: 0.72rem; font-weight: 700; color: var(--sky); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .event-card h4 { font-weight: 700; color: var(--navy); font-size: 1rem; margin-bottom: 8px; }
+    .event-card p { font-size: 0.87rem; color: var(--gray); line-height: 1.6; }
+    .event-free { margin-top: 12px; font-size: 0.78rem; font-weight: 700; color: var(--mint); }
+
+    /* REVIEWS */
+    .reviews-bg { background: var(--navy); }
+    .reviews-bg .section-label { color: var(--mint); }
+    .reviews-bg .section-title { color: var(--white); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+    .review-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 28px;
+    }
+    .review-stars { color: #FBBF24; font-size: 0.9rem; margin-bottom: 14px; }
+    .review-text { font-size: 0.9rem; color: #A8B8CC; line-height: 1.7; margin-bottom: 20px; }
+    .review-author { font-weight: 600; color: var(--white); font-size: 0.9rem; }
+    .review-meta { font-size: 0.78rem; color: #5B7289; margin-top: 2px; }
+
+    /* FAQ */
+    .faq-list { max-width: 720px; margin: 50px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { border: 1px solid #E5E0D6; border-radius: 12px; overflow: hidden; }
+    .faq-q {
+      width: 100%; text-align: left; background: none; border: none;
+      padding: 20px 24px; font-size: 0.95rem; font-weight: 600; color: var(--navy);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      font-family: inherit;
+    }
+    .faq-q:hover { background: var(--cream); }
+    .faq-icon { font-size: 1.2rem; color: var(--sky); font-weight: 400; flex-shrink: 0; }
+    .faq-a { display: none; padding: 0 24px 20px; font-size: 0.88rem; color: var(--gray); line-height: 1.7; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--sky) 0%, #1A5BA6 100%);
+      text-align: center; padding: 80px 5%;
+    }
+    .cta-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--white); margin-bottom: 16px;
+    }
+    .cta-banner p { color: rgba(255,255,255,0.75); font-size: 1rem; margin-bottom: 36px; }
+    .cta-form {
+      display: flex; gap: 12px; max-width: 480px; margin: 0 auto; flex-wrap: wrap;
+    }
+    .cta-form input {
+      flex: 1; min-width: 180px; padding: 14px 18px; border-radius: 10px;
+      border: none; font-size: 0.9rem; font-family: inherit; outline: none;
+    }
+    .cta-form button {
+      background: var(--navy); color: var(--white);
+      border: none; border-radius: 10px; padding: 14px 24px;
+      font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: background .2s;
+    }
+    .cta-form button:hover { background: #0A1728; }
+    .cta-whatsapp {
+      margin-top: 20px; color: rgba(255,255,255,0.6); font-size: 0.85rem;
+    }
+    .cta-whatsapp a { color: var(--white); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+    .footer-brand .logo { display: block; margin-bottom: 14px; }
+    .footer-brand p { color: #5B7289; font-size: 0.85rem; line-height: 1.65; max-width: 240px; }
+    .footer-col h5 { color: var(--white); font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: #5B7289; text-decoration: none; font-size: 0.85rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .footer-bottom p { color: #3B5268; font-size: 0.8rem; }
+    .footer-socials { display: flex; gap: 12px; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center; text-decoration: none;
+      font-size: 1rem; transition: background .2s;
+    }
+    .social-link:hover { background: rgba(255,255,255,0.12); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 1000;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 20px;
+      padding: 40px; max-width: 440px; width: 100%; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray);
+    }
+    .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 8px; }
+    .modal p { color: var(--gray); font-size: 0.88rem; margin-bottom: 24px; }
+    .modal-form { display: flex; flex-direction: column; gap: 14px; }
+    .modal-form input, .modal-form select {
+      border: 1.5px solid #E5E0D6; border-radius: 10px;
+      padding: 13px 16px; font-size: 0.9rem; font-family: inherit; outline: none;
+    }
+    .modal-form input:focus, .modal-form select:focus { border-color: var(--sky); }
+    .modal-form button {
+      background: var(--sky); color: var(--white);
+      border: none; border-radius: 10px; padding: 14px;
+      font-weight: 700; font-size: 0.95rem; cursor: pointer;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .why-grid, .pricing-grid, .teachers-grid { grid-template-columns: repeat(2, 1fr); }
+      .courses-grid, .events-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .price-card.featured { transform: none; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .why-grid, .pricing-grid, .teachers-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Speak<span>Up</span></a>
+  <ul class="nav-links">
+    <li><a href="#courses">Курсы</a></li>
+    <li><a href="#pricing">Стоимость</a></li>
+    <li><a href="#teachers">Преподаватели</a></li>
+    <li><a href="#events">Мероприятия</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openModal(); return false;">Записаться</a>
+  <div class="hamburger" onclick="this.classList.toggle('active')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">🏆 Лучшая школа 2024</div>
+    <h1>Заговори<br>на <em>английском</em><br>с первого урока</h1>
+    <p>Мы обучаем разговорному английскому с 2014 года. Коммуникативный подход, живая практика, дружелюбная атмосфера — и результат уже через месяц.</p>
+    <div class="hero-stats">
+      <div class="stat"><strong>10+</strong><span>лет опыта</span></div>
+      <div class="stat"><strong>50 000+</strong><span>выпускников</span></div>
+      <div class="stat"><strong>5</strong><span>филиалов</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary" onclick="openModal(); return false;">Начать учиться</a>
+      <a href="#courses" class="btn-ghost">Посмотреть курсы</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h3>Оставьте заявку — перезвоним за 10 минут</h3>
+    <div class="hero-form">
+      <input type="text" placeholder="Ваше имя" />
+      <input type="tel" placeholder="Номер телефона" />
+      <select>
+        <option value="" disabled selected>Выберите курс</option>
+        <option>Групповые занятия</option>
+        <option>Индивидуальные занятия</option>
+        <option>Интенсивный курс</option>
+        <option>Подготовка к IELTS</option>
+        <option>Английский для детей</option>
+      </select>
+      <button class="submit-btn" onclick="submitHeroForm(this)">Отправить заявку</button>
+      <p class="form-note">Мы не передаём ваши данные третьим лицам</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section>
+  <div class="section-label">Почему SpeakUp</div>
+  <div class="section-title">Метод, который работает</div>
+  <p class="section-sub">Мы используем коммуникативный подход на основе программы Oxford University Press — так язык осваивается через живое общение, а не зубрёжку.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🗣️</div>
+      <h4>Практика с первого урока</h4>
+      <p>Уже на первом занятии вы начнёте говорить на английском. Языковой барьер исчезает постепенно, шаг за шагом.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌍</div>
+      <h4>Носители языка</h4>
+      <p>Ежемесячные встречи с иностранными гостями из разных стран. Живое общение с носителями — часть программы.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📊</div>
+      <h4>Прозрачный прогресс</h4>
+      <p>Каждый месяц вы получаете отчёт от преподавателя с анализом успехов и рекомендациями по развитию.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎵</div>
+      <h4>Атмосфера, которая вдохновляет</h4>
+      <p>Во время занятий всегда играет фоновая музыка. Это помогает расслабиться и усваивать материал эффективнее.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📚</div>
+      <h4>Международная программа</h4>
+      <p>Учебники English File от Oxford University Press, соответствующие шкале CEFR от A1 до C1.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔄</div>
+      <h4>Гибкий формат</h4>
+      <p>Онлайн или офлайн, утро или вечер, группа или индивидуально — подберём расписание под вас.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="courses-bg" id="courses">
+  <div class="courses-header">
+    <div>
+      <div class="section-label">Наши курсы</div>
+      <div class="section-title">Найдите свой формат</div>
+    </div>
+    <p class="section-sub">Программа подбирается индивидуально по результатам бесплатного теста на уровень.</p>
+  </div>
+  <div class="courses-grid">
+    <div class="course-card">
+      <span class="course-tag">Популярное</span>
+      <h4>Групповые занятия</h4>
+      <p>Занятия в группах от 3 до 12 человек. Живое общение, командная динамика и дружелюбная атмосфера помогают учиться быстрее и с удовольствием.</p>
+      <ul style="color:var(--gray);font-size:.85rem;padding-left:18px;line-height:1.8;">
+        <li>13 занятий по 60 минут в месяц</li>
+        <li>Учебник включён в стоимость</li>
+        <li>Speaking Club — бесплатно</li>
+      </ul>
+      <div class="course-meta">
+        <div class="course-price">от 25 000 ₸ <span>/ месяц</span></div>
+        <a href="#" class="course-link" onclick="openModal(); return false;">Записаться →</a>
+      </div>
+    </div>
+    <div class="course-card">
+      <span class="course-tag">Быстрый результат</span>
+      <h4>Индивидуальные занятия</h4>
+      <p>Программа полностью под вас: темп, темы, время. Преподаватель фокусируется только на ваших пробелах и целях.</p>
+      <ul style="color:var(--gray);font-size:.85rem;padding-left:18px;line-height:1.8;">
+        <li>Гибкое расписание</li>
+        <li>Персональная программа</li>
+        <li>Офлайн или онлайн</li>
+      </ul>
+      <div class="course-meta">
+        <div class="course-price">от 60 000 ₸ <span>/ месяц</span></div>
+        <a href="#" class="course-link" onclick="openModal(); return false;">Записаться →</a>
+      </div>
+    </div>
+    <div class="course-card">
+      <span class="course-tag">Дети</span>
+      <h4>Английский для детей</h4>
+      <p>Игровой формат, яркие учебники Family and Friends, занятия с преподавателями, которые умеют работать с детьми от 5 лет.</p>
+      <ul style="color:var(--gray);font-size:.85rem;padding-left:18px;line-height:1.8;">
+        <li>Возраст 5–14 лет</li>
+        <li>Мероприятия JSI Kids Day</li>
+        <li>Отчёт для родителей</li>
+      </ul>
+      <div class="course-meta">
+        <div class="course-price">от 22 000 ₸ <span>/ месяц</span></div>
+        <a href="#" class="course-link" onclick="openModal(); return false;">Записаться →</a>
+      </div>
+    </div>
+    <div class="course-card">
+      <span class="course-tag">Экзамен</span>
+      <h4>Подготовка к IELTS</h4>
+      <p>Разбор всех четырёх модулей: Reading, Writing, Listening, Speaking. Практика с настоящими экзаменационными материалами и Mock Test.</p>
+      <ul style="color:var(--gray);font-size:.85rem;padding-left:18px;line-height:1.8;">
+        <li>Mock Test в подарок</li>
+        <li>Преподаватели с сертификатами</li>
+        <li>Группы и индивидуально</li>
+      </ul>
+      <div class="course-meta">
+        <div class="course-price">от 50 000 ₸ <span>/ месяц</span></div>
+        <a href="#" class="course-link" onclick="openModal(); return false;">Записаться →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div style="text-align:center">
+    <div class="section-label">Стоимость</div>
+    <div class="section-title">Прозрачные цены</div>
+    <p class="section-sub" style="margin:0 auto;">Никаких скрытых платежей. Учебники, Speaking Club и отработка пропущенных уроков уже включены.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Групповые</div>
+      <div class="price-amount">25 000</div>
+      <div class="price-period">тенге / месяц</div>
+      <ul class="price-features">
+        <li>13 занятий по 60 мин</li>
+        <li>Группы 3–12 человек</li>
+        <li>Speaking Club</li>
+        <li>Отработка пропусков</li>
+        <li>Учебник включён</li>
+      </ul>
+      <a href="#" class="btn-price btn-price-outline" onclick="openModal(); return false;">Записаться</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">🔥 Хит продаж</div>
+      <div class="price-name" style="color:white">Интенсивный</div>
+      <div class="price-amount">50 000</div>
+      <div class="price-period">тенге / месяц</div>
+      <ul class="price-features">
+        <li>26 занятий по 60 мин</li>
+        <li>Два уровня за семестр</li>
+        <li>Speaking Club с носителем</li>
+        <li>Персональный трекинг</li>
+        <li>Приоритет на мероприятиях</li>
+      </ul>
+      <a href="#" class="btn-price btn-price-fill" onclick="openModal(); return false;">Начать учиться</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Индивидуальные</div>
+      <div class="price-amount">60 000</div>
+      <div class="price-period">тенге / месяц</div>
+      <ul class="price-features">
+        <li>Гибкое расписание</li>
+        <li>Персональная программа</li>
+        <li>Любой уровень</li>
+        <li>Онлайн или офлайн</li>
+        <li>Ежемесячный отчёт</li>
+      </ul>
+      <a href="#" class="btn-price btn-price-outline" onclick="openModal(); return false;">Записаться</a>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHERS -->
+<section class="teachers-bg" id="teachers">
+  <div class="section-label">Команда</div>
+  <div class="section-title">Наши преподаватели</div>
+  <p class="section-sub">Молодые, энергичные и квалифицированные — они знают, как сделать обучение увлекательным.</p>
+  <div class="teachers-grid">
+    <div class="teacher-card">
+      <div class="teacher-avatar">A</div>
+      <div class="teacher-name">Айгерим С.</div>
+      <div class="teacher-spec">Разговорный английский · B2+</div>
+    </div>
+    <div class="teacher-card">
+      <div class="teacher-avatar">D</div>
+      <div class="teacher-name">Даниэль К.</div>
+      <div class="teacher-spec">Подготовка к IELTS · C1</div>
+    </div>
+    <div class="teacher-card">
+      <div class="teacher-avatar">M</div>
+      <div class="teacher-name">Мадина Т.</div>
+      <div class="teacher-spec">Английский для детей · C1</div>
+    </div>
+    <div class="teacher-card">
+      <div class="teacher-avatar">A</div>
+      <div class="teacher-name">Асель Н.</div>
+      <div class="teacher-spec">Бизнес-английский · C2</div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="section-label">Для студентов</div>
+  <div class="section-title">Жизнь вне урока</div>
+  <p class="section-sub">Особая атмосфера — это то, что нас отличает. Мы создаём сообщество мечтателей и практиков.</p>
+  <div class="events-grid">
+    <div class="event-card">
+      <div class="event-icon">🎤</div>
+      <div>
+        <div class="event-tag">Каждое воскресенье</div>
+        <h4>Speaking Club</h4>
+        <p>Встречи для студентов всех уровней: от начинающих до продвинутых. Живое общение в непринуждённой обстановке — лучшая практика для снятия языкового барьера.</p>
+        <div class="event-free">✦ Бесплатно для студентов</div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">🎉</div>
+      <div>
+        <div class="event-tag">Ежемесячно</div>
+        <h4>JSI Events</h4>
+        <p>Концерты, квизы, просмотры фильмов, встречи с интересными людьми. Всё — на английском и с друзьями из школы.</p>
+        <div class="event-free">✦ Бесплатно для студентов</div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">🧒</div>
+      <div>
+        <div class="event-tag">Для детей</div>
+        <h4>Kids Day</h4>
+        <p>Праздничные мероприятия с аниматорами для детей 6–14 лет. Дети общаются, играют и учатся — на английском языке.</p>
+        <div class="event-free">✦ Бесплатно для студентов</div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">🌐</div>
+      <div>
+        <div class="event-tag">Онлайн</div>
+        <h4>Занятия из любой точки</h4>
+        <p>Наша онлайн-платформа позволяет учиться из дома или офиса. Те же преподаватели, та же программа, та же атмосфера.</p>
+        <div class="event-free">✦ Доступно для всех</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-bg" id="reviews">
+  <div class="section-label">Отзывы</div>
+  <div class="section-title">Студенты достигают результата</div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Пришла с нулевым уровнем — через полгода прошла собеседование на английском в международную компанию. Это была мечта, которая казалась нереальной. SpeakUp изменил мою карьеру.»</p>
+      <div class="review-author">Зарина М.</div>
+      <div class="review-meta">Выпускница, групповой курс · Алматы</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Преподаватели здесь — настоящие профессионалы. Объясняют просто, не осуждают за ошибки и постоянно мотивируют. Speaking Club — отдельный кайф, рекомендую всем.»</p>
+      <div class="review-author">Тимур А.</div>
+      <div class="review-meta">Студент, интенсивный курс · Алматы</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Мой ребёнок занимается уже год. Теперь сам смотрит мультики на английском и просит ещё! Преподаватель находит подход к каждому — это чувствуется.»</p>
+      <div class="review-author">Дина К.</div>
+      <div class="review-meta">Мама студентки 8 лет · Алматы</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div style="text-align:center">
+    <div class="section-label">Вопросы и ответы</div>
+    <div class="section-title">Часто спрашивают</div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        С какого уровня можно начать?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Принимаем студентов с любым уровнем — от абсолютного нуля до Advanced. Перед зачислением вы пройдёте бесплатный тест на уровень, и мы подберём подходящую группу или программу.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Что делать, если я пропустил занятие?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Пропущенные занятия можно отработать в другой группе вашего уровня — в любом из наших филиалов. Это входит в стоимость обучения и никак не ограничено.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Можно ли учиться онлайн?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Да! У нас есть онлайн-формат с теми же преподавателями и той же программой. Занятия проходят в интерактивном формате через нашу платформу — вы можете учиться из любой точки мира.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Как быстро я начну говорить на английском?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Первые результаты заметны уже через 4–6 недель: вы начнёте понимать простую речь и строить базовые фразы. Наш коммуникативный подход ориентирован именно на то, чтобы вы заговорили как можно быстрее.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Есть ли учебники в стоимость?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">В групповом формате учебники приобретаются отдельно — это стандартные учебники Oxford (English File или Family and Friends). Стоимость книги от 8 000 ₸, она используется в течение всего семестра.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Есть ли возрастные ограничения?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Никаких ограничений. У нас учатся дети от 5 лет, школьники, студенты, взрослые и даже пенсионеры. Для каждой возрастной группы — своя программа и атмосфера.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contacts">
+  <h2>Начните говорить на английском сегодня</h2>
+  <p>Оставьте номер — мы перезвоним и подберём курс под ваши цели и расписание</p>
+  <div class="cta-form">
+    <input type="tel" placeholder="Ваш номер телефона" />
+    <button onclick="submitCtaForm(this)">Перезвоните мне</button>
+  </div>
+  <p class="cta-whatsapp">Или напишите сразу в <a href="https://wa.me/77000000000">WhatsApp →</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">Speak<span>Up</span></a>
+      <p>Обучаем английскому языку с 2014 года. 5 филиалов в Алматы и онлайн-обучение для студентов по всему миру.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Курсы</h5>
+      <ul>
+        <li><a href="#">Групповые занятия</a></li>
+        <li><a href="#">Индивидуальные</a></li>
+        <li><a href="#">Интенсивный курс</a></li>
+        <li><a href="#">Для детей</a></li>
+        <li><a href="#">Подготовка к IELTS</a></li>
+        <li><a href="#">Онлайн</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Компания</h5>
+      <ul>
+        <li><a href="#">О нас</a></li>
+        <li><a href="#">Преподаватели</a></li>
+        <li><a href="#">Мероприятия</a></li>
+        <li><a href="#">Блог</a></li>
+        <li><a href="#">Вакансии</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Контакты</h5>
+      <ul>
+        <li><a href="tel:+77000000000">+7 (700) 000-00-00</a></li>
+        <li><a href="mailto:info@speakup.kz">info@speakup.kz</a></li>
+        <li><a href="#">Все филиалы</a></li>
+        <li><a href="#">Тест на уровень</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 SpeakUp. Все права защищены.</p>
+    <div class="footer-socials">
+      <a href="#" class="social-link">📘</a>
+      <a href="#" class="social-link">📸</a>
+      <a href="#" class="social-link">▶️</a>
+      <a href="#" class="social-link">💬</a>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Записаться на курс</h3>
+    <p>Заполните форму — мы свяжемся с вами в течение 10 минут</p>
+    <div class="modal-form">
+      <input type="text" placeholder="Ваше имя" />
+      <input type="tel" placeholder="Номер телефона" />
+      <select>
+        <option value="" disabled selected>Выберите курс</option>
+        <option>Групповые занятия</option>
+        <option>Индивидуальные занятия</option>
+        <option>Интенсивный курс</option>
+        <option>Подготовка к IELTS</option>
+        <option>Английский для детей</option>
+        <option>Онлайн обучение</option>
+      </select>
+      <select>
+        <option value="" disabled selected>Выберите филиал</option>
+        <option>Филиал 1 — Центр</option>
+        <option>Филиал 2 — Мамыр</option>
+        <option>Филиал 3 — Аэропорт</option>
+        <option>Филиал 4 — Бостандык</option>
+        <option>Онлайн</option>
+      </select>
+      <button onclick="submitModalForm(this)">Отправить заявку</button>
+      <p style="font-size:.75rem;color:var(--gray);text-align:center">Мы не передаём ваши данные третьим лицам</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const WEBHOOK = 'https://hook.eu2.make.com/asqecltf63vivtp7cyjf5nehq7simwdo';
+
+  function openModal() {
+    document.getElementById('modal').classList.add('open');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  async function sendToWebhook(data) {
+    await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  }
+
+  function setBtnState(btn, state) {
+    if (state === 'loading') {
+      btn.textContent = '⏳ Отправляем...';
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+    } else if (state === 'success') {
+      btn.textContent = '✓ Заявка принята!';
+      btn.style.background = 'var(--mint)';
+      btn.style.color = 'var(--navy)';
+      btn.style.opacity = '1';
+      btn.disabled = true;
+    } else if (state === 'reset') {
+      btn.textContent = btn._origText;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+    }
+  }
+
+  async function submitHeroForm(btn) {
+    const form = btn.closest('.hero-form');
+    const inputs = form.querySelectorAll('input, select');
+    const name = inputs[0].value.trim();
+    const phone = inputs[1].value.trim();
+    const course = inputs[2].value;
+
+    if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон'); return; }
+
+    btn._origText = btn.textContent;
+    setBtnState(btn, 'loading');
+    try {
+      await sendToWebhook({ name, phone, course, source: 'Форма на главной' });
+      fbq('track', 'Lead', { content_name: 'Форма на главной', content_category: course });
+      setBtnState(btn, 'success');
+      inputs.forEach(el => el.value = '');
+      setTimeout(() => setBtnState(btn, 'reset'), 3000);
+    } catch {
+      setBtnState(btn, 'reset');
+      alert('Ошибка отправки. Попробуйте ещё раз.');
+    }
+  }
+
+  async function submitModalForm(btn) {
+    const form = btn.closest('.modal-form');
+    const inputs = form.querySelectorAll('input, select');
+    const name = inputs[0].value.trim();
+    const phone = inputs[1].value.trim();
+    const course = inputs[2].value;
+    const branch = inputs[3].value;
+
+    if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон'); return; }
+
+    btn._origText = btn.textContent;
+    setBtnState(btn, 'loading');
+    try {
+      await sendToWebhook({ name, phone, course, branch, source: 'Модальное окно' });
+      fbq('track', 'Lead', { content_name: 'Модальное окно', content_category: course });
+      setBtnState(btn, 'success');
+      inputs.forEach(el => el.value = '');
+      setTimeout(() => { setBtnState(btn, 'reset'); closeModal(); }, 3000);
+    } catch {
+      setBtnState(btn, 'reset');
+      alert('Ошибка отправки. Попробуйте ещё раз.');
+    }
+  }
+
+  async function submitCtaForm(btn) {
+    const form = btn.closest('.cta-form');
+    const phone = form.querySelector('input').value.trim();
+
+    if (!phone) { alert('Пожалуйста, введите номер телефона'); return; }
+
+    btn._origText = btn.textContent;
+    setBtnState(btn, 'loading');
+    try {
+      await sendToWebhook({ phone, source: 'CTA баннер внизу страницы' });
+      fbq('track', 'Lead', { content_name: 'CTA баннер' });
+      setBtnState(btn, 'success');
+      form.querySelector('input').value = '';
+      setTimeout(() => setBtnState(btn, 'reset'), 3000);
+    } catch {
+      setBtnState(btn, 'reset');
+      alert('Ошибка отправки. Попробуйте ещё раз.');
+    }
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
